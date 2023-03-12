@@ -16,9 +16,9 @@ const MediumHeader = () => {
     const [selectColorToggle, setSelectColorToggle] = useState(false)
     useEffect(() => {
         if (clothesType || priceToggle || brandToggle || selectColorToggle) {
-            document.body.style.overflow = "hidden"
+            // document.body.style.overflow = "auto"
         } else {
-            document.body.style.overflow = "auto"
+            // document.body.style.overflow = "auto"
         }
     }, [clothesType, priceToggle, brandToggle, selectColorToggle])
 

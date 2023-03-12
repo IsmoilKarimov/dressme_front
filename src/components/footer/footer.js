@@ -107,10 +107,10 @@ const Footer = () => {
     const [openPrice, setOpenPrice] = useState(false);
     return (
 
-        <div>
-            <div className='w-full h-full m-auto max-w-[1440px] xs:px-[100px] mb-[80px] md:mb-[60px] md:px-[80px] ss:bg-btnBgColor md:bg-white'>
+        <div className="">
+            <div className='w-full h-full m-auto max-w-[1440px] ss:px-[16px]  md:mb-[60px] md:px-[80px] ss:bg-btnBgColor md:bg-white'>
 
-                <div className='rounded-lg ss:px-4 ss:py-6 md:p-10 md:border md:border-searchBgColor'>
+                <div className='rounded-lg ss:px-4 ss:py-6 md:p-10 md:border md:border-searchBgColor '>
 
                     {/* Footer LOGO and Fedback form */}
                     <div className="flex items-center justify-between mb-4 ss:px-4 md:px-0">

@@ -54,10 +54,13 @@
     transition: .4s;
 }
 
-#forwidt:hover{
-    
-}
+#forwidt:hover {}
+
 #forwidt:hover img {
     transform: scale(1.009);
 
 }
+
+
+
+

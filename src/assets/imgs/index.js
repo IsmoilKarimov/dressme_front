@@ -119,7 +119,7 @@ export {default as russiaFlag} from './Language/russia (1).svg'
 export {default as englishFlag} from './Language/english.svg'
 
 
-// ----------------Forlanguage---------
+// ----------------ForBrand---------
 
 export {default as adidas} from './BrandType/adidas-2.svg'
 export {default as chanel} from './BrandType/chanel.svg'
@@ -134,3 +134,5 @@ export {default as puma} from './BrandType/puma-logo.svg'
 export {default as tommy} from './BrandType/tommy-hilfig-vectorlogo.svg'
 export {default as zara} from './BrandType/zara-logo-1.svg'
 
+
+// ----------------------\\\\\-----------------
