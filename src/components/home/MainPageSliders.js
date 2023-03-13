@@ -274,6 +274,46 @@ export default function MainPageSliders() {
             </div>
 
 
+
+            <div className='flex border border-solid border-red-500	mt-[64px] flex-wrap justify-between items-center  gap-y-5    ss:hidden xs:block xs:flex'>
+                {/* 1 */}
+                <div className={`lg:w-[23%]  sm:w-[47%] ss:w-[100%] ss:h-20 py-[20px] px-[16px] xs:h-[100px] bg-bgColor rounded-lg  flex flex-wrap content-between cursor-pointer select-none border border-solid	border-borderColorCard `}>
+                    <div className='w-full'>
+                        <p className={`not-italic font-normal ss:text-sm xs:text-base leading-4 text-black `}>Strengthen Health</p>
+                    </div>
+                    <div className='w-full flex justify-between items-center'>
+                        <p className='nnot-italic font-medium text-xl leading-6 text-black'>Sports clothes</p>
+                        <p><img src={category} alt="next" className='ss:w-[70%] xs:w-[100%]' /></p>
+                    </div>
+                </div>
+                {/* 2 */}
+
+                <div className='lg:w-[23%] sm:w-[47%] ss:w-[100%] ss:h-20 xs:h-[100px] py-[20px] px-[16px] bg-bgColor rounded-lg  flex flex-wrap content-between cursor-pointer select-none border border-solid	border-borderColorCard'>
+                    <div className='w-full'>
+                        <p className='not-italic font-normal ss:text-sm xs:text-base leading-4 text-black'>Based on your Interests</p>
+                    </div>
+                    <div className='w-full flex justify-between items-center'>
+                        <p className='not-italic font-medium text-xl leading-6 text-black'>Muslim clothes</p>
+                        <p><img src={category} alt="next" className='ss:w-[70%] xs:w-[100%]' /></p>
+                    </div>
+                </div>
+                {/* 3*/}
+
+                <div className='lg:w-[23%] sm:w-[47%] ss:w-[100%] ss:h-20 xs:h-[100px] py-[20px] px-[16px] bg-bgColor rounded-lg  flex flex-wrap content-between cursor-pointer select-none border border-solid	border-borderColorCard'>
+                    <div className='w-full'>
+                        <p className='not-italic font-normal ss:text-sm xs:text-base leading-4 text-black'>Sort by your Money</p>
+                    </div>
+                    <div className='w-full flex justify-between items-center'>
+                        <p className='flex items-end'><span className='not-italic font-normal text-base text-gray-500 mr-2'>ниже</span><span className='not-italic font-medium text-xl leading-6 text-black'>40$</span><span><img src={arrowBottomFull} alt="arrowBottomFull" /></span></p>
+                        <p><img src={category} alt="next" className='ss:w-[70%] xs:w-[100%]' /></p>
+                    </div>
+                </div>
+                {/* 4*/}
+
+                </Slider>
+            </div>
+
+
             {carosuelData?.map(data => {
                 return (
                     data?.service?.filter(data => data.id === dressInfo?.type).map(data => {
@@ -329,6 +369,18 @@ export default function MainPageSliders() {
                 )
             })
             }
+
+
+                <div className='lg:w-[23%] sm:w-[47%] ss:w-[100%] ss:h-20 xs:h-[100px] py-[20px] px-[16px] bg-bgColor rounded-lg  flex flex-wrap content-between cursor-pointer select-none border border-solid	border-borderColorCard'>
+                    <div className='w-full'>
+                        <p className='not-italic font-normal ss:text-sm xs:text-base leading-4 text-black'>Магазины ближе к вам</p>
+                    </div>
+                    <div className='w-full flex justify-between items-center'>
+                        <p className='flex mr-2 items-center'><span><img src={markets} alt="arrowBottomFull" className='mr-2' /></span><span className='not-italic font-medium ss:tex-tlg ll:text-xl leading-6 text-black'>Найти магазина</span></p>
+                        <p><img src={category} alt="next" /></p>
+                    </div>
+                </div>
+            </div>
 
 
         </div>

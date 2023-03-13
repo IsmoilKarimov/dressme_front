@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import React, { createContext, useState } from "react";
 export const dressMainData = createContext();
 export const DressMenu = ({ children }) => {
     const [dressInfo, setDressInfo] = useState({ type: 1111 });
@@ -7,8 +7,10 @@ export const DressMenu = ({ children }) => {
     // 3333-kuz
     // 4444-qish
     return (
-        <dressMainData.Provider value={[dressInfo, setDressInfo]}>
-            {children}
-        </dressMainData.Provider>
+       <div>
+            <dressMainData.Provider value={[dressInfo, setDressInfo]}>
+                {children}
+            </dressMainData.Provider>
+       </div>
     );
 };

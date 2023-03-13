@@ -13,6 +13,7 @@ const RouterList = () => {
             <Routes >
                 <Route path='/home' element={
                     <React.Suspense fallback={<div className={"MoonLoad"} ><MoonLoader size={100} color="#0d263b" /></div>}>
+
                         <Home />
                     </React.Suspense>
                 } />

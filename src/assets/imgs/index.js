@@ -114,9 +114,10 @@ export { default as winterVolume } from './VolumeSeason/VolumeWinter.svg'
 
 // ----------------Forlanguage---------
 
-export { default as uzbekFlag } from './Language/uzbekistan.svg'
-export { default as russiaFlag } from './Language/russia (1).svg'
-export { default as englishFlag } from './Language/english.svg'
+
+export {default as uzbekFlag} from './Language/uzbekistan.svg'
+export {default as russiaFlag} from './Language/russia (1).svg'
+export {default as englishFlag} from './Language/english.svg'
 
 
 // ----------------ForBrand---------
@@ -175,3 +176,19 @@ export { default as SpringSquare } from './SeasonSquare/springSquare.svg'
 export { default as SummerSquare  } from './SeasonSquare/summerSquare.svg'
 export { default as AutummSquare  } from './SeasonSquare/autummSquare.svg'
 export { default as WinterSquare  } from './SeasonSquare/winterSquare.svg'
+=======
+export {default as adidas} from './BrandType/adidas-2.svg'
+export {default as chanel} from './BrandType/chanel.svg'
+export {default as dolce} from './BrandType/dolce-gabbana-1.svg'
+export {default as gucci} from './BrandType/gucci.svg'
+export {default as hm} from './BrandType/h-m.svg'
+export {default as lacoste} from './BrandType/lacoste-logo.svg'
+export {default as louis} from './BrandType/louis-vuitton-1.svg'
+export {default as nike} from './BrandType/nike-4-2.svg'
+export {default as prada} from './BrandType/prada.svg'
+export {default as puma} from './BrandType/puma-logo.svg'
+export {default as tommy} from './BrandType/tommy-hilfig-vectorlogo.svg'
+export {default as zara} from './BrandType/zara-logo-1.svg'
+
+
+// ----------------------\\\\\-----------------
