@@ -1,14 +1,14 @@
-import React, { useContext, useState, useEffect } from "react";
-import { arrowBottom, clothing, colors, dollarLogo, plus } from "../../assets/imgs";
+import React, { useContext, useState, useMemo } from "react";
+import { arrowBottom, AutummFemale, AutummMale, clothing, colors, dollarLogo, plus, SpringBoy, SpringChild, SpringFemale, SpringGirl, SpringMale, SummerFemale, SummerMale, WinterFemale, WinterMale } from "../../assets/imgs";
 import { dressMainData } from "../../ContextHook/ContextMenu";
 import { styles } from "../../util/style";
-import { Button, Dropdown } from 'antd';
+import { Dropdown } from 'antd';
 import { BiChevronDown } from "react-icons/bi";
 import { AiOutlineSearch } from "react-icons/ai";
-
+import { Button, Divider, Popover, Segmented } from 'antd';
 const BottomHeader = () => {
     const [dressInfo, setDressInfo] = useContext(dressMainData)
-  
+
     let dataStyle = ''
     let genderStyle = ''
     if (dressInfo?.type == 1111) {
@@ -27,9 +27,27 @@ const BottomHeader = () => {
         dataStyle = " hover:text-borderWinter "
         genderStyle = "focus:text-borderWinter focus:bg-bgWinter focus:border-borderWinter focus:text-borderWinter"
     }
+
+    const [personItems, setPersonItems] = useState([
+        // { id: 1111, male: SpringMale, female: SpringFemale, boy: SpringBoy, girls: SpringGirl, childs: SpringChild },
+        { id: 1111, man: SpringMale, woman: SpringFemale },
+        { id: 2222, man: SummerMale, woman: SummerFemale },
+        { id: 3333, man: AutummMale, woman: AutummFemale },
+        { id: 4444, man: WinterMale, woman: WinterFemale },
+    ])
+
+
+    // ----------------Wear state management----------------------------
+    const [openwear, setOpenwear] = useState(false);
+
+    const handleOpenChangeWear = (newOpen) => {
+        setOpenwear(newOpen);
+    };
     const [selectWear, setselectWear] = useState("Clothing type");
     const handleWearValue = (value) => {
         setselectWear(value)
+        setOpenwear(false);
+
     }
     const wearList = [
         { id: 1, type: "All Clothing types" },
@@ -39,11 +57,36 @@ const BottomHeader = () => {
         { id: 5, type: "Legwear" },
         { id: 6, type: "Accessory" },
     ]
-    const [OpenWear, setOpenWear] = useState(false);
+    const contentWear = (
+        <div className="w-[190px] h-fit m-0 p-0">
+            {
+                wearList.map(data => {
+                    return (
+                        <p
+                            key={data?.id}
+                            onClick={() => {
+                                handleWearValue(data?.type)
+                            }
+                            }
+                            className={`w-full h-[42px] flex items-center justify-center not-italic cursor-pointer font-medium text-sm leading-4 text-center hover:bg-bgColor ${dataStyle}`}>{data?.type}</p>
+                    )
+                })
+            }
+        </div>
+    );
 
+
+    // --------------------------------------------
+    // ----------------------Price State Management----------------------
+    const [openPrice, setOpenOrice] = useState(false);
+
+    const handleOpenChangePrice = (newOpen) => {
+        setOpenOrice(newOpen);
+    };
     const [selectPrice, setselectPrice] = useState("Under 100$");
     const handlePriceValue = (value) => {
         setselectPrice(value)
+        setOpenOrice(false)
     }
     const priceList = [
         { id: 1, type: "At all prices" },
@@ -53,85 +96,60 @@ const BottomHeader = () => {
         { id: 5, type: "Under 100$" },
         { id: 6, type: "Under 50$" },
     ]
-    const [openPrice, setOpenPrice] = useState(false);
+    const contentPrice = (
+        <div className="w-[190px] h-fit m-0 p-0">
+            {
+                priceList.map(data => {
+                    return (
+                        <p
+                            key={data?.id}
+                            onClick={() => {
+                                handlePriceValue(data?.type)
+                            }
+                            }
+                            className={`w-full h-[42px] flex items-center justify-center not-italic cursor-pointer font-medium text-sm leading-4 text-center hover:bg-bgColor ${dataStyle}`}>{data?.type}</p>
+                    )
+                })
+            }
+        </div>
+    );
 
+
+    // --------------------------------------------
 
     return (
         <div className={`bottom w-full max-w-[1440px] md:px-[80px] mx-auto my-3 hidden md:block`}>
 
             <div className="flex items-center justify-between text-sm">
-                <button className="w-fit flex items-center bg-bgColor px-3 h-12  rounded mr-2 border-searchBgColor border">
-                    <img src={clothing} alt="clothing" className="" />
-                    {/* <span className="font-medium mr-[35px] text-sm">Тип одежды</span> */}
-                    <div className="w-[130px] font-medium  h-[100%] ">
-                        <div
-                            onClick={() => setOpenWear(!OpenWear)}
-                            className={`bg-bgColor w-full h-12 flex flex-col items-center justify-center ${!selectWear && "text-gray-700"
-                                }`}
-                        >
-                            {selectWear}
-                        </div>
-                        <ul
-                            className={`bg-white w-[200px] ml-[-33px] mt-2 overflow-y-auto relative
-                            z-50 rounded shadow-lg	 ${OpenWear ? "max-h-60" : "max-h-0"
-                                } `}
-                        >
-                            {wearList.map(data => {
-                                return (
-                                    <li
-                                        key={data?.id}
-                                        className={`p-2 text-sm hover:bg-bgColor ${dataStyle}`}
-                                        onClick={() => {
-                                            handleWearValue(data?.type)
-                                            setOpenWear(false)
-                                        }
-                                        }
-                                    >
-                                        {data?.type}
-                                    </li>
-                                )
-                            })}
-                        </ul>
-                    </div>
-                    <BiChevronDown size={25} style={{ color: "#c2c2c2" }} className={`${OpenWear && "rotate-180"} `} />
+
+                <Popover
+                    open={openwear}
+                    onOpenChange={handleOpenChangeWear}
+                    className="w-[190px] px-[17px] h-12  rounded bg-bgColor  border-searchBgColor border flex items-center justify-between cursor-pointer select-none group"
+                    trigger="click"
+                    options={['Hide']}
+                    placement="bottom"
+                    content={contentWear} >
+                    <span><img src={clothing} alt="clothing" className="" /> </span>
+                    <span className="not-italic font-medium text-center text-sm leading-4 text-black">{selectWear}</span>
+                    <span><BiChevronDown size={25} style={{ color: "#c2c2c2" }} className={`group-focus:rotate-[-180deg] duration-200`} /> </span>
+                </Popover>
+                <Popover
+                    open={openPrice}
+                    onOpenChange={handleOpenChangePrice}
+                    className="w-[210px]  h-12  rounded bg-bgColor  border-searchBgColor border  flex items-center justify-between  cursor-pointer select-none group "
+                    trigger="click"
+                    options={['Hide']}
+                    placement="bottom"
+                    content={contentPrice} >
+                    <p className="w-[56px] h-full flex items-center justify-center border-r border-borderColorCard"><img src={dollarLogo} alt="dollar full" /> </p>
+                    <p className=" w-[154px] h-full flex justify-between items-center px-3">
+                        <span className="not-italic font-medium text-center text-sm leading-4 text-black ">{selectPrice}</span>
+                        <span className=""><BiChevronDown size={25} style={{ color: "#c2c2c2" }} className='group-focus:rotate-[-180deg] duration-200' /> </span>
+                    </p>
+                </Popover>
 
 
-                </button>
-                <button className="h-12 flex items-center bg-bgColor rounded mr-2 pr-3 border-searchBgColor border">
-                    <img src={dollarLogo} alt="dollar full" className="px-[18px] py-3 border-r h-full" />
-                    <div className="w-[130px] font-medium  h-[100%] ">
-                        <div
-                            onClick={() => setOpenPrice(!openPrice)}
-                            className={`bg-bgColor w-full h-12 flex flex-col items-center justify-center ${!selectPrice && "text-gray-700"
-                                }`}
-                        >
-                            {selectPrice}
-                        </div>
-                        <ul
-                            className={`bg-white w-[200px] ml-[-33px] mt-2 overflow-y-auto relative
-                            z-50 rounded shadow-lg	 ${openPrice ? "max-h-60" : "max-h-0"
-                                } `}
-                        >
-                            {priceList.map(data => {
-                                return (
-                                    <li
-                                        key={data?.id}
-                                        className={`p-2 text-sm hover:bg-bgColor ${dataStyle}`}
-                                        onClick={() => {
-                                            handlePriceValue(data?.type)
-                                            setOpenPrice(false)
-                                        }
-                                        }
-                                    >
-                                        {data?.type}
-                                    </li>
-                                )
-                            })}
-                        </ul>
-                    </div>
-                    <BiChevronDown size={25} style={{ color: "#c2c2c2" }} className={`${openPrice && "rotate-180"} `} />
-                    {/* <img src={arrowBottom} alt="arrow bottom" /> */}
-                </button>
                 <div className="flex items-center justify-between bg-bgColor rounded border-searchBgColor border h-12">
                     <img src={colors} alt="" className="px-[18px] py-[14px] border-r h-full mr-3" />
                     <label className="rounded-full w-6 h-6 bg-black cursor-pointer border border-solid mr-3 border-borderColorCard" htmlFor="Color1">
@@ -172,18 +190,26 @@ const BottomHeader = () => {
                     </label>
                 </div>
                 <div className="line h-6 border text-textColor mx-3"></div>
-                <button className={`mr-1 ${genderStyle} font-medium w-[111px] h-12 border border-searchBgColor rounded`}>
-                    Женщинам
-                </button>
-                <button className={` font-medium ${genderStyle} w-[111px] h-12 border  border-searchBgColor mr-1 rounded`}>
-                    Мужчинам
-                </button>
+                {
+                    personItems?.filter(value => value.id === dressInfo?.type).map(data => {
+                        return (
+                            <div key={data?.id} className="w-fit flex items-center ">
+                                <button className={`mr-1 ${genderStyle} font-medium w-[136px] h-12 px-[16px] justify-between flex items-center border border-searchBgColor rounded`}>
+                                    <img src={data?.woman} alt="female" /><span> Женщинам</span>
+                                </button>
+                                <button className={` font-medium ${genderStyle} w-[136px] h-12 border px-[16px] justify-between flex items-center  border-searchBgColor mr-1 rounded`}>
+                                    <img src={data?.man} alt="male" />    <span>Мужчинам</span>
+                                </button>
+                            </div>
+                        )
+                    })
+                }
                 <button className="bg-bgColor font-medium w-12 h-12 flex items-center justify-center border border-searchBgColor rounded">
                     <img src={plus} alt="" />
                 </button>
-            </div>
+            </div >
 
-        </div>
+        </div >
     )
 }
 

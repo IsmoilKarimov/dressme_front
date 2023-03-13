@@ -1,16 +1,11 @@
 import React, { useContext, useState } from 'react'
-import { Swiper, SwiperSlide } from "swiper/react";
-import 'swiper/swiper-bundle.css';
-import "swiper/css";
-import "swiper/css/pagination";
-import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper';
-import { next, category, arrowBottomFull, mouse, toBottom, markets, adidas, chanel, dolce, gucci, hm, locate, lacoste, louis, nike, prada, puma, tommy, zara, } from '../../assets/imgs'
+
+import { next, category, arrowBottomFull, mouse, toBottom, markets, adidas, chanel, dolce, gucci, hm, locate, lacoste, louis, nike, prada, puma, tommy, zara, SpringSquare, SummerSquare, AutummSquare, WinterSquare, } from '../../assets/imgs'
 import styles from './clothers.module.css'
 import { GrNext, GrPrevious } from 'react-icons/gr';
 import Slider from "react-slick";
 
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
+
 import { dressMainData } from '../../ContextHook/ContextMenu';
 // import required modules``
 export default function MainPageSliders() {
@@ -35,7 +30,6 @@ export default function MainPageSliders() {
 
     }
 
-    SwiperCore.use([Navigation, Pagination, Autoplay]);
     const [clothesToggle, setClothesToggle] = useState(true)
     const [carosuelData, setCarosuelData] = useState([
         {
@@ -49,8 +43,6 @@ export default function MainPageSliders() {
                 { id: 7, type: "Relaxed", count: 180, img: "" },
                 { id: 8, type: "Dramatic", count: 250, img: "" },
                 { id: 9, type: "Creative", count: 190, img: "" },
-
-
             ],
 
             campany: [
@@ -66,8 +58,14 @@ export default function MainPageSliders() {
                 { id: 10, imgFull: puma },
                 { id: 11, imgFull: tommy },
                 { id: 12, imgFull: zara },
-
+            ],
+            service: [
+                { id: 1111, type: "Spring", imgFull: SpringSquare },
+                { id: 2222, type: "Summer", imgFull: SummerSquare },
+                { id: 3333, type: "Autumm", imgFull: AutummSquare },
+                { id: 4444, type: "Winter", imgFull: WinterSquare },
             ]
+
         },
 
     ])
@@ -276,52 +274,61 @@ export default function MainPageSliders() {
             </div>
 
 
+            {carosuelData?.map(data => {
+                return (
+                    data?.service?.filter(data => data.id === dressInfo?.type).map(data => {
+                        return (
+                            <div className='flex border border-solid border-red-500	mt-[64px] flex-wrap justify-between items-center  gap-y-5    ss:hidden xs:block xs:flex'>
+                                {/* 1 */}
+                                <div className={`lg:w-[23%]  sm:w-[47%] ss:w-[100%] ss:h-20 py-[20px] px-[16px] xs:h-[100px] bg-bgColor rounded-lg  flex flex-wrap content-between cursor-pointer select-none border border-solid	border-borderColorCard `}>
+                                    <div className='w-full'>
+                                        <p className={`not-italic font-normal ss:text-sm xs:text-base leading-4 text-black `}>Strengthen Health</p>
+                                    </div>
+                                    <div className='w-full flex justify-between items-center'>
+                                        <p className='nnot-italic font-medium text-xl leading-6 text-black'>Sports clothes</p>
+                                        <p><img src={data?.imgFull} alt="next" className='ss:w-[70%] xs:w-[100%]' /></p>
+                                    </div>
+                                </div>
+                                {/* 2 */}
 
-            <div className='flex border border-solid border-red-500	mt-[64px] flex-wrap justify-between items-center  gap-y-5    ss:hidden xs:block xs:flex'>
-                {/* 1 */}
-                <div className={`lg:w-[23%]  sm:w-[47%] ss:w-[100%] ss:h-20 py-[20px] px-[16px] xs:h-[100px] bg-bgColor rounded-lg  flex flex-wrap content-between cursor-pointer select-none border border-solid	border-borderColorCard `}>
-                    <div className='w-full'>
-                        <p className={`not-italic font-normal ss:text-sm xs:text-base leading-4 text-black `}>Strengthen Health</p>
-                    </div>
-                    <div className='w-full flex justify-between items-center'>
-                        <p className='nnot-italic font-medium text-xl leading-6 text-black'>Sports clothes</p>
-                        <p><img src={category} alt="next" className='ss:w-[70%] xs:w-[100%]' /></p>
-                    </div>
-                </div>
-                {/* 2 */}
+                                <div className='lg:w-[23%] sm:w-[47%] ss:w-[100%] ss:h-20 xs:h-[100px] py-[20px] px-[16px] bg-bgColor rounded-lg  flex flex-wrap content-between cursor-pointer select-none border border-solid	border-borderColorCard'>
+                                    <div className='w-full'>
+                                        <p className='not-italic font-normal ss:text-sm xs:text-base leading-4 text-black'>Based on your Interests</p>
+                                    </div>
+                                    <div className='w-full flex justify-between items-center'>
+                                        <p className='not-italic font-medium text-xl leading-6 text-black'>Muslim clothes</p>
+                                        <p><img src={data?.imgFull} alt="next" className='ss:w-[70%] xs:w-[100%]' /></p>
+                                    </div>
+                                </div>
+                                {/* 3*/}
 
-                <div className='lg:w-[23%] sm:w-[47%] ss:w-[100%] ss:h-20 xs:h-[100px] py-[20px] px-[16px] bg-bgColor rounded-lg  flex flex-wrap content-between cursor-pointer select-none border border-solid	border-borderColorCard'>
-                    <div className='w-full'>
-                        <p className='not-italic font-normal ss:text-sm xs:text-base leading-4 text-black'>Based on your Interests</p>
-                    </div>
-                    <div className='w-full flex justify-between items-center'>
-                        <p className='not-italic font-medium text-xl leading-6 text-black'>Muslim clothes</p>
-                        <p><img src={category} alt="next" className='ss:w-[70%] xs:w-[100%]' /></p>
-                    </div>
-                </div>
-                {/* 3*/}
+                                <div className='lg:w-[23%] sm:w-[47%] ss:w-[100%] ss:h-20 xs:h-[100px] py-[20px] px-[16px] bg-bgColor rounded-lg  flex flex-wrap content-between cursor-pointer select-none border border-solid	border-borderColorCard'>
+                                    <div className='w-full'>
+                                        <p className='not-italic font-normal ss:text-sm xs:text-base leading-4 text-black'>Sort by your Money</p>
+                                    </div>
+                                    <div className='w-full flex justify-between items-center'>
+                                        <p className='flex items-end'><span className='not-italic font-normal text-base text-gray-500 mr-2'>ниже</span><span className='not-italic font-medium text-xl leading-6 text-black'>40$</span><span><img src={arrowBottomFull} alt="arrowBottomFull" /></span></p>
+                                        <p><img src={data?.imgFull} alt="next" className='ss:w-[70%] xs:w-[100%]' /></p>
+                                    </div>
+                                </div>
+                                {/* 4*/}
 
-                <div className='lg:w-[23%] sm:w-[47%] ss:w-[100%] ss:h-20 xs:h-[100px] py-[20px] px-[16px] bg-bgColor rounded-lg  flex flex-wrap content-between cursor-pointer select-none border border-solid	border-borderColorCard'>
-                    <div className='w-full'>
-                        <p className='not-italic font-normal ss:text-sm xs:text-base leading-4 text-black'>Sort by your Money</p>
-                    </div>
-                    <div className='w-full flex justify-between items-center'>
-                        <p className='flex items-end'><span className='not-italic font-normal text-base text-gray-500 mr-2'>ниже</span><span className='not-italic font-medium text-xl leading-6 text-black'>40$</span><span><img src={arrowBottomFull} alt="arrowBottomFull" /></span></p>
-                        <p><img src={category} alt="next" className='ss:w-[70%] xs:w-[100%]' /></p>
-                    </div>
-                </div>
-                {/* 4*/}
+                                <div className='lg:w-[23%] sm:w-[47%] ss:w-[100%] ss:h-20 xs:h-[100px] py-[20px] px-[16px] bg-bgColor rounded-lg  flex flex-wrap content-between cursor-pointer select-none border border-solid	border-borderColorCard'>
+                                    <div className='w-full'>
+                                        <p className='not-italic font-normal ss:text-sm xs:text-base leading-4 text-black'>Магазины ближе к вам</p>
+                                    </div>
+                                    <div className='w-full flex justify-between items-center'>
+                                        <p className='flex mr-2 items-center'><span><img src={markets} alt="arrowBottomFull" className='mr-2' /></span><span className='not-italic font-medium ss:tex-tlg ll:text-xl leading-6 text-black'>Найти магазина</span></p>
+                                        <p><img src={data?.imgFull} alt="next" /></p>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })
 
-                <div className='lg:w-[23%] sm:w-[47%] ss:w-[100%] ss:h-20 xs:h-[100px] py-[20px] px-[16px] bg-bgColor rounded-lg  flex flex-wrap content-between cursor-pointer select-none border border-solid	border-borderColorCard'>
-                    <div className='w-full'>
-                        <p className='not-italic font-normal ss:text-sm xs:text-base leading-4 text-black'>Магазины ближе к вам</p>
-                    </div>
-                    <div className='w-full flex justify-between items-center'>
-                        <p className='flex mr-2 items-center'><span><img src={markets} alt="arrowBottomFull" className='mr-2' /></span><span className='not-italic font-medium ss:tex-tlg ll:text-xl leading-6 text-black'>Найти магазина</span></p>
-                        <p><img src={category} alt="next" /></p>
-                    </div>
-                </div>
-            </div>
+                )
+            })
+            }
 
 
         </div>

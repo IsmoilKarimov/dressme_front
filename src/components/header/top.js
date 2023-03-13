@@ -4,6 +4,7 @@ import { business, eng, englishFlag, glasses, help, location, order, ru, russiaF
 import { dressMainData } from "../../ContextHook/ContextMenu";
 import { styles } from "../../util/style";
 // import { Select, Space } from 'antd';
+import { Button, Divider, Popover, Segmented } from 'antd';
 
 const TopHeader = () => {
     const [dressInfo, setDressInfo] = useContext(dressMainData)
@@ -37,20 +38,59 @@ const TopHeader = () => {
     }
     // -----Language Change-------------------
     const [selectLang, setselectLang] = useState(1);
-    const handleLangValue = (value) => {
-        setselectLang(value)
-    }
+
     const LanguageList = [
         { id: 1, type: "Uzbekcha", icons: uzbekFlag },
         { id: 2, type: "Russian", icons: russiaFlag },
         { id: 3, type: "English", icons: englishFlag }
     ]
-    const [openLanguage, setOpenLanguage] = useState(false);
+
+    const [openLang, setOpenLang] = useState(false);
+
+    const handleOpenChangeWear = (newOpen) => {
+        setOpenLang(newOpen);
+    };
+
+    const handleLangValue = (value) => {
+        setselectLang(value)
+        setOpenLang(false);
+    }
+
+
+    const contentLang = (
+        <div className="w-[132px] h-fit m-0 p-0">
+            {
+                LanguageList.map(data => {
+                    return (
+                        <div
+                            key={data?.id}
+                            className={`p-2 text-sm cursor-pointer hover:bg-bgColor flex items-center justify-center ${dataStyle}`}
+                            onClick={() => {
+                                handleLangValue(data?.id)
+                            }
+                            }
+                        >
+                            <span className="mr-1"><img src={data?.icons} alt="" /></span>
+                            <span className={`not-italic font-normal text-sm leading-4 text-black ${dataStyle}`}>{data?.type}</span>
+                        </div>
+                    )
+                })
+            }
+        </div>
+    );
+
 
     // -------City Change -------------
-    const [selectCity, setselectCity] = useState("Tashkent");
+    const [selectCity, setSelectCity] = useState("Tashkent");
+    const [openRegion, setOpenRegion] = useState(false);
+
+    const handleOpenChangeCity = (newOpen) => {
+        setOpenRegion(newOpen);
+    };
+
     const handleCityValue = (value) => {
-        setselectCity(value)
+        setSelectCity(value)
+        setOpenRegion(false);
     }
 
 
@@ -62,9 +102,29 @@ const TopHeader = () => {
         { id: 5, type: "Xorazm" },
         { id: 6, type: "Navoiy" },
     ]
-    const [openCity, setOpenCity] = useState(false);
 
-  
+
+    const contentCity = (
+        <div className="w-[132px] h-fit m-0 p-0">
+            {
+                CityList.map(data => {
+                    return (
+                        <div
+                            key={data?.id}
+                            className={`p-2 pl-7 text-sm text-start hover:bg-bgColor cursor-pointer ${dataStyle}`}
+                            onClick={() => {
+                                handleCityValue(data?.type)
+                            }
+                            }
+                        >
+                            {data?.type}
+                        </div>
+                    )
+                })
+            }
+        </div>
+    );
+
     return (
         <div className="top bg-bgColor hidden md:block">
             <div className="w-full max-w-[1440px] ss:px-4 md:px-[80px] mx-auto ">
@@ -76,7 +136,19 @@ const TopHeader = () => {
                                 <span className="text-textColor mr-[6px] font-medium">Город:</span>
                                 {/* <span className="font-medium border-b border-slate-900 text-black mr-[45px]">Ташкент</span> */}
                                 <div className="w-[70px] font-medium   flex items-center ">
-                                    <div
+
+                                    <Popover
+                                        open={openRegion}
+                                        onOpenChange={handleOpenChangeCity}
+                                        className=" flex  items-center  "
+                                        trigger="click"
+                                        options={['Hide']}
+                                        placement="bottom"
+                                        content={contentCity} >
+                                        <a className="border-b border-slate-900" href="#">{selectCity}</a>
+                                    </Popover>
+
+                                    {/* <div
                                         onClick={() => setOpenCity(!openCity)}
                                         className={`w-[120px]  font-medium  text-black mr-[45px]      ${!selectCity && "text-gray-700"
                                             }`}
@@ -103,46 +175,31 @@ const TopHeader = () => {
                                                 </li>
                                             )
                                         })}
-                                    </ul>
+                                    </ul> */}
                                 </div>
                             </Link>
 
                             <div className="w-[100px] rounded bg-white ml-[58px]  mr-3 font-medium select-none cursor-pointer">
+
                                 {
-                                    LanguageList.filter(data => data.id == selectLang).map(data => {
+                                    LanguageList.filter(data => data.id === selectLang).map(data => {
                                         return (
-                                            <div
-                                                onClick={() => setOpenLanguage(!openLanguage)}
-                                                className={` w-full flex  py-[5px] px-3 items-center  ${!selectLang && "text-gray-700"
-                                                    }`}
-                                            >
-                                                <span className="mr-1"><img src={data?.icons} alt="" /></span>
-                                                <span>{data?.type}</span>
-                                            </div>
-                                        )
-                                    })}
-                                <ul
-                                    className={`bg-white w-[150px] ml-[-2%] absolute mt-2 overflow-y-auto 
-                                              z-50 rounded shadow-lg 	 ${openLanguage ? "max-h-60" : "max-h-0"
-                                        } `}
-                                >
-                                    {LanguageList.map(data => {
-                                        return (
-                                            <li
+                                            <Popover
                                                 key={data?.id}
-                                                className={`p-2 text-sm hover:bg-bgColor flex items-center justify-center ${dataStyle}`}
-                                                onClick={() => {
-                                                    handleLangValue(data?.id)
-                                                    setOpenLanguage(false)
-                                                }
-                                                }
-                                            >
+                                                open={openLang}
+                                                onOpenChange={handleOpenChangeWear}
+                                                className="w-full flex  py-[5px] px-3 items-center "
+                                                trigger="click"
+                                                options={['Hide']}
+                                                placement="bottom"
+                                                content={contentLang} >
                                                 <span className="mr-1"><img src={data?.icons} alt="" /></span>
                                                 <span>{data?.type}</span>
-                                            </li>
+                                            </Popover>
                                         )
-                                    })}
-                                </ul>
+                                    })
+                                }
+
                             </div>
 
 
